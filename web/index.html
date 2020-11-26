@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script>
+        $(function (){
+            $.ajax({
+                url:'servlet',
+                type:'get',
+                success:function (data){
+                    $.each(data,function (index,n){
+                        $('#tab').append(
+                            "<tr>"+
+                            "<td>"+n.stu_id+"</td>"+
+                            "<td>"+n.stu_name+"</td>"+
+                            "</tr>"
+                        )
+                    })
+                }
+            })
+
+            $("#tj").on('click',function () {
+                var f1=$("#f1").serialize();
+                $.ajax({
+                    url:'add',
+                    type:'post',
+                    data:f1,
+                    success:function (code){
+                        if (code==200){
+                            location.reload();
+                            $('#tab').append(
+                                "<tr>"+
+                                "<td>"+n.stu_id+"</td>"+
+                                "<td>"+n.stu_name+"</td>"+
+                                "</tr>"
+                            )
+                        }else{
+                            alert("添加失败");
+                        }
+                    }
+                })
+            })
+
+        })
+    </script>
+</head>
+<body>
+<div>
+    <form id="f1">
+    <h2>用户消息</h2>
+    <label>name:</label><input type="text" id="name" name="name">
+    <input type="button" id="tj" value="添加">
+<table id="tab" class="table table-bordered table-striped table-hover">
+    <tr>
+        <th>id</th>
+        <th>name</th>
+    </tr>
+</table>
+    </form>
+</div>
+</body>
+</html>
